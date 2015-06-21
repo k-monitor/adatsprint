@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_head %}
+
+<script src="{% static 'pdfjs/web/compatibility.js' %}"></script>
+<!-- This snippet is used in production (included from viewer.html) -->
+<link rel="resource" type="application/l10n" href="{% static 'pdfjs/web/locale/locale.properties' %}"/>
+<script src="{% static 'pdfjs/web/l10n.js' %}"></script>
+<script src="{% static 'pdfjs/build/pdf.js' %}"></script>
+<script type="text/javascript">
+    // Specify the main script used to create a new PDF.JS web worker.
+    // In production, leave this undefined or change it to point to the
+    // combined `pdf.worker.js` file.
+    PDFJS.workerSrc = '/static/pdfjs/build/pdf.worker.js';
+</script>
+<script src="{% static 'pdfjs/web/debugger.js' %}"></script>
+
+
+<script type="text/javascript" src="{% static 'js/pdfviewer.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewer.css' %}" />
+{% endblock %}
+
+{% block body %}
+<h1>{{ object.name }}</h1>
+<div id="pdfviewer" data-src="{{ object.pdf_file.url }}">
+{% include 'viewerjs/viewer.html' %}
+</div>
+<h1>blablablabla</h1>
+{% endblock %}
