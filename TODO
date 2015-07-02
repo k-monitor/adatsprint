@@ -1,3 +1,6 @@
-* Write views
 * User signups
+* Require login on pages
 * bulk upload of MP
+* Translations
+* Prevent same user from processing and verifying same MP
+* Show percentages on landing pages

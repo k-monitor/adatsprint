@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+
+{% load bootstrap %}
 {% load staticfiles %}
 
 {% block extra_head %}
-
 <script src="{% static 'pdfjs/web/compatibility.js' %}"></script>
 <link rel="resource" type="application/l10n" href="{% static 'pdfjs/web/locale/locale.properties' %}"/>
 <script src="{% static 'pdfjs/web/l10n.js' %}"></script>
@@ -16,4 +17,10 @@
 <div id="pdfviewer" data-src="{{ object.pdf_file.url }}">
 {% include 'viewerjs/viewer.html' %}
 </div>
+<form action="{% url 'campaigns:verify' object.pk %}" method="post" role="form">
+    {{ form|bootstrap }}
+    <button type="submit" class="btn btn-primary">Verify</button>
+    <a href="{% url 'campaigns:process_landing' %}" class="btn btn-default">Cancel</a>
+    {% csrf_token %}
+</form>
 {% endblock %}

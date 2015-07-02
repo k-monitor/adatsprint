@@ -11,28 +11,35 @@ class CampaignTestCase(TestCase):
         cls.campaign = Campaign.objects.create(name='Baptiste 2015')
 
     def test_custom_manager(self):
-        MP.objects.create(campaign=self.campaign, name='unfinished/verified', finished=False, verified=True)
-        MP.objects.create(campaign=self.campaign, name='finished/unverified', finished=True, verified=False)
+        status = [
+            (MP.STATUS.UNPROCESSED, "unprocessed"),
+            (MP.STATUS.PROCESSING, "processing"),
+            (MP.STATUS.PROCESSED, "processed"),
+            (MP.STATUS.VERIFYING, "verifying"),
+            (MP.STATUS.VERIFIED, "verified"),
+        ]
+        for status_name, status_value in status:
+            MP.objects.create(campaign=self.campaign, name=status_name, status=status_value)
 
-        self.assertQuerysetEqual(MP.objects.finished(), ['finished/unverified'], attrgetter('name'))
-        self.assertQuerysetEqual(MP.objects.unfinished(), ['unfinished/verified'], attrgetter('name'))
-        self.assertQuerysetEqual(MP.objects.verified(), ['unfinished/verified'], attrgetter('name'))
-        self.assertQuerysetEqual(MP.objects.unverified(), ['finished/unverified'], attrgetter('name'))
+        for status_name, status_value in status:
+            custom_manager_method = getattr(MP.objects, status_name)
+            queryset = custom_manager_method()
+            self.assertQuerysetEqual(queryset, [status_name], attrgetter('name'))
 
     def test_completion_rate_empty_campaign(self):
         self.assertAlmostEqual(self.campaign.completion_rate, 1)
 
     def test_completion_rate(self):
-        MP.objects.create(campaign=self.campaign, name='unfinished', finished=False)
+        MP.objects.create(campaign=self.campaign, name='unfinished', status=MP.STATUS.EMPTY)
         self.assertAlmostEqual(self.campaign.completion_rate, 0)
-        MP.objects.create(campaign=self.campaign, name='unfinished', finished=True)
+        MP.objects.create(campaign=self.campaign, name='unfinished', status=PROCESSED)
         self.assertAlmostEqual(self.campaign.completion_rate, 0.5)
 
     def test_verification_rate_empty_campaign(self):
         self.assertAlmostEqual(self.campaign.verification_rate, 1)
 
     def test_verification_rate(self):
-        MP.objects.create(campaign=self.campaign, name='unfinished', verified=False)
+        MP.objects.create(campaign=self.campaign, name='unfinished', status=PROCESSED)
         self.assertAlmostEqual(self.campaign.verification_rate, 0)
-        MP.objects.create(campaign=self.campaign, name='unfinished', verified=True)
+        MP.objects.create(campaign=self.campaign, name='unfinished', status=VERIFIED)
         self.assertAlmostEqual(self.campaign.verification_rate, 0.5)

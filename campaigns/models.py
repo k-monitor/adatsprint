@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -9,7 +10,7 @@ class Campaign(models.Model):
     @property
     def completion_rate(self):
         total = self.participants.count()
-        completed = self.participants.finished().count()
+        completed = self.participants.completed().count()
 
         if not total:
             return 1
@@ -35,20 +36,41 @@ class Campaign(models.Model):
 
 
 class MPQuerySet(models.QuerySet):
-    def finished(self):
-        return self.filter(finished=True)
+    def unprocessed(self):
+        return self.filter(status=self.model.STATUS.UNPROCESSED)
 
-    def unfinished(self):
-        return self.filter(finished=False)
+    def processing(self):
+        return self.filter(status=self.model.STATUS.PROCESSING)
+
+    def processed(self):
+        return self.filter(status=self.model.STATUS.PROCESSED)
+
+    def verifying(self):
+        return self.filter(status=self.model.STATUS.VERIFYING)
 
     def verified(self):
-        return self.filter(verified=True)
+        return self.filter(status=self.model.STATUS.VERIFIED)
 
-    def unverified(self):
-        return self.filter(verified=False)
+    def completed(self):
+        return self.filter(status__gte=self.model.STATUS.PROCESSED)
 
 
 class MP(models.Model):
+    class STATUS:
+        UNPROCESSED = 1
+        PROCESSING = 2
+        PROCESSED = 3
+        VERIFYING = 4
+        VERIFIED = 5
+
+        choices = [
+            (UNPROCESSED, _("unprocessed")),
+            (PROCESSING, _("processing")),
+            (PROCESSED, _("processed")),
+            (VERIFYING, _("verifying")),
+            (VERIFIED, _("verified")),
+        ]
+
     campaign = models.ForeignKey('Campaign', verbose_name=_("campaign"), related_name='participants')
     name = models.CharField(_("name"), max_length=200)
     agreement_number = models.PositiveIntegerField(_("agreement number"), blank=True, null=True)
@@ -59,11 +81,8 @@ class MP(models.Model):
     comment = models.TextField(_("comment"), blank=True)
 
     pdf_file = models.FileField(_("PDF file"), blank=True)
-    finished = models.BooleanField(_("finished"), default=False)
-    verified = models.BooleanField(_("verified"), default=False)
 
-    created_on = models.DateTimeField(_("created on"), auto_now_add=True)
-    updated_on = models.DateTimeField(_("updated on"), auto_now=True)
+    status = models.PositiveIntegerField(_("status"), choices=STATUS.choices, default=STATUS.UNPROCESSED)
 
     objects = MPQuerySet.as_manager()
 
@@ -73,6 +92,28 @@ class MP(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MPEvent(models.Model):
+    class ACTION:
+        INSERTED = 'inserted'
+        PROCESS_START = 'process start'
+        PROCESS_DONE = 'process done'
+        VERIFY_START = 'verify start'
+        VERIFY_DONE = 'verify done'
+
+        choices = [
+            (INSERTED, _("inserted")),
+            (PROCESS_START, _("process start")),
+            (PROCESS_DONE, _("process done")),
+            (VERIFY_START, _("verify start")),
+            (VERIFY_DONE, _("verify done")),
+        ]
+
+    MP = models.ForeignKey('MP', verbose_name=_("MP"), related_name='events')
+    action = models.CharField(_("action"), max_length=50, choices=ACTION.choices)
+    user = models.ForeignKey('auth.User', verbose_name=_("user"))
+    happened_on = models.DateTimeField(_("happened on"), default=timezone.now)
 
 
 class Expense(models.Model):

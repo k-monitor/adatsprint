@@ -6,4 +6,17 @@ urlpatterns = [
     url(r'^$', views.CampaignListView.as_view(), name='campaign_list'),
     url(r'^campaign/(?P<pk>\d+)/$', views.CampaignDetailView.as_view(), name='campaign_detail'),
     url(r'^MP/(?P<pk>\d+)/$', views.MPDetailView.as_view(), name='MP_detail'),
+
+
+    url(r'^process/$', views.ProcessLandingView.as_view(), name='process_landing'),
+    url(r'^process/dispatch/$', views.ProcessDispatch.as_view(), name='process_dispatch'),
+    url(r'^process/(?P<pk>\d+)/claim/$', views.ClaimProcessView.as_view(), name='process_claim'),
+    url(r'^process/(?P<pk>\d+)/$', views.ProcessView.as_view(), name='process'),
+    url(r'^process/pending/$', views.PendingProcessListView.as_view(), name='process_pending'),
+
+    url(r'^verify/$', views.VerifyLandingView.as_view(), name='verify_landing'),
+    url(r'^verify/dispatch/$', views.VerifyDispatch.as_view(), name='verify_dispatch'),
+    url(r'^verify/(?P<pk>\d+)/claim/$', views.ClaimVerifyView.as_view(), name='verify_claim'),
+    url(r'^verify/(?P<pk>\d+)/$', views.VerifyView.as_view(), name='verify'),
+    url(r'^verify/pending/$', views.PendingVerifyListView.as_view(), name='verify_pending'),
 ]

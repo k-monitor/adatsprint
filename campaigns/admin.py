@@ -24,5 +24,5 @@ class ExpenseInline(admin.TabularInline):
 class MPAdmin(admin.ModelAdmin):
     list_display = ('campaign', 'name', 'agreement_number', 'total')
     search_fields = ['name']
-    list_filter = ['finished', 'verified']
+    list_filter = ['status']
     inlines = [ExpenseInline]
