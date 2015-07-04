@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from .utils import get_pdf_page_count
 
 class Campaign(models.Model):
     name = models.CharField(_("name"), max_length=100)
@@ -81,6 +82,7 @@ class MP(models.Model):
     comment = models.TextField(_("comment"), blank=True)
 
     pdf_file = models.FileField(_("PDF file"), blank=True)
+    _pdf_page_count = models.PositiveIntegerField(_("PDF page count"), blank=True, null=True, editable=False)
 
     status = models.PositiveIntegerField(_("status"), choices=STATUS.choices, default=STATUS.UNPROCESSED)
 
@@ -92,6 +94,17 @@ class MP(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def pdf_page_count(self):
+        """
+        Return the number of pages in the PDF.
+        That number is calculated on the fly on first access and stored for later.
+        """
+        if self._pdf_page_count is None:
+            self._pdf_page_count = get_pdf_page_count(self.pdf_file)
+            self.save()
+        return self._pdf_page_count
 
 
 class MPEvent(models.Model):

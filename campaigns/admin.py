@@ -22,7 +22,7 @@ class ExpenseInline(admin.TabularInline):
 
 @admin.register(MP)
 class MPAdmin(admin.ModelAdmin):
-    list_display = ('campaign', 'name', 'agreement_number', 'total')
+    list_display = ('campaign', 'name', 'agreement_number', 'total', 'pdf_page_count')
     search_fields = ['name']
     list_filter = ['status']
     inlines = [ExpenseInline]
