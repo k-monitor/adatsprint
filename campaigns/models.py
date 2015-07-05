@@ -77,7 +77,7 @@ class MP(models.Model):
     agreement_number = models.PositiveIntegerField(_("agreement number"), blank=True, null=True)
     campaign_start = models.DateField(_("campaign start"), blank=True, null=True)
     campaign_end = models.DateField(_("campaign end"), blank=True, null=True)
-    total = models.DecimalField(_("total"), max_digits=10, decimal_places=2, blank=True, null=True)
+    total = models.PositiveIntegerField(_("total"), blank=True, null=True)
     signed_on = models.DateField(_("signed on"), blank=True, null=True)
     comment = models.TextField(_("comment"), blank=True)
 
@@ -138,10 +138,10 @@ class Expense(models.Model):
     product = models.CharField(_("product"), max_length=200, blank=True)
     purchase_date = models.DateField(_("purchase date"), blank=True, null=True)
     purpose = models.CharField(_("purpose"), max_length=200, blank=True, null=True)
-    net_amount = models.DecimalField(_("net amount"), max_digits=10, decimal_places=2, blank=True, null=True)
-    VAT_amount = models.DecimalField(_("VAT amount"), max_digits=10, decimal_places=2, blank=True, null=True)
-    gross_amount = models.DecimalField(_("gross amount"), max_digits=10, decimal_places=2, blank=True, null=True)
-    claimed_amount = models.DecimalField(_("claimed amount"), max_digits=10, decimal_places=2, blank=True, null=True)
+    net_amount = models.PositiveIntegerField(_("net amount"), blank=True, null=True)
+    VAT_amount = models.PositiveIntegerField(_("VAT amount"), blank=True, null=True)
+    gross_amount = models.PositiveIntegerField(_("gross amount"), blank=True, null=True)
+    claimed_amount = models.PositiveIntegerField(_("claimed amount"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("expense")
