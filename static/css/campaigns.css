@@ -37,3 +37,7 @@ table.row-formset > tbody > tr > td.dateinput {
 .collapsible-heading.collapsed {
     background: #eee;
 }
+
+.datepicker {
+    z-index: 9000; /* Fix for datepicker appearing under fixed table header */
+}
