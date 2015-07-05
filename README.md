@@ -10,10 +10,25 @@ The project was developped with Python 3 in mind but should (hopefully) work
 with Python 2 as well.
 
 In a virtualenv, install the requirements (`pip install -r requirements.txt`).
+
 Then create the database with `python manage.py migrate`.
+
 You can import PDF into the system using the `bulk_upload` management command:
 `python manage.py bulk_upload path_to_folder` (where `path_to_folder` points
 to a folder that contains PDF files).
+
+You might also want to create a superuser (to access the admin for example):
+`python manage.py createsuperuser`.
+
+Running
+-------
+
+To run the site locally, simply do `python manage.py runserver`.
+You'll also need to serve the uploaded files if you want PDFs to load.
+For that, you can use the `servemedia.py` script like so:
+
+    $ cd uploads  # settings.MEDIA_ROOT
+    $ python ../servemedia.py 8080  # the settings assume port 8080
 
 Workflow
 --------
