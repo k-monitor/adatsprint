@@ -1,26 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'campaigns/baseform.html' %}
 
-{% load bootstrap %}
-{% load staticfiles %}
-
-{% block extra_head %}
-<script src="{% static 'pdfjs/web/compatibility.js' %}"></script>
-<link rel="resource" type="application/l10n" href="{% static 'pdfjs/web/locale/locale.properties' %}"/>
-<script src="{% static 'pdfjs/web/l10n.js' %}"></script>
-<script src="{% static 'pdfjs/build/pdf.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/pdfviewer.js' %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'css/viewer.css' %}" />
-{% endblock %}
-
-{% block body %}
-<h1>{{ object.name }}</h1>
-<div id="pdfviewer" data-src="{{ object.pdf_file.url }}">
-{% include 'viewerjs/viewer.html' %}
-</div>
-<form action="{% url 'campaigns:verify' object.pk %}" method="post" role="form">
-    {{ form|bootstrap }}
-    <button type="submit" class="btn btn-primary">Verify</button>
-    <a href="{% url 'campaigns:process_landing' %}" class="btn btn-default">Cancel</a>
-    {% csrf_token %}
-</form>
-{% endblock %}
+{% block form_action_url %}{% url 'campaigns:verify' pk=object.pk %}{% endblock %}
+{% block form_submit_text %}Verify{% endblock %}
+{% block form_cancel_url %}{% url 'campaigns:verify_landing' %}{% endblock %}

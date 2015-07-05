@@ -2,11 +2,12 @@ import random
 
 from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.forms.models import inlineformset_factory
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
-from .forms import MPProcessForm, MPVerifyForm
-from .models import Campaign, MP, MPEvent
+from .forms import MPProcessForm, MPVerifyForm, EXPENSE_FORMSET_FIELDS, EXPENSE_FORMSET_WDIGETS
+from .models import Campaign, MP, MPEvent, Expense
 
 
 class CampaignListView(generic.ListView):
@@ -120,6 +121,14 @@ class ProcessLandingView(MPStatusMixin, generic.ListView):
         queryset = queryset.select_related('campaign')
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super(ProcessLandingView, self).get_context_data(**kwargs)
+        context.update({
+            'total': MP.objects.count(),
+            'completed': MP.objects.completed().count(),
+        })
+        return context
+
 
 class ProcessDispatch(BaseDispatchView):
     status = MP.STATUS.UNPROCESSED
@@ -173,6 +182,19 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
     """
     status = MP.STATUS.PROCESSED
     template_name = 'campaigns/verify_landing.html'
+
+    def get_queryset(self):
+        queryset = super(VerifyLandingView, self).get_queryset()
+        queryset = queryset.select_related('campaign')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(VerifyLandingView, self).get_context_data(**kwargs)
+        context.update({
+            'total': MP.objects.count(),
+            'verified': MP.objects.verified().count(),
+        })
+        return context
 
 
 class VerifyDispatch(MPStatusMixin, generic.RedirectView):

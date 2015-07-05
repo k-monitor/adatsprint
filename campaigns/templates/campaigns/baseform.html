@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block extra_head %}
+<script src="{% static 'pdfjs/web/compatibility.js' %}"></script>
+<link rel="resource" type="application/l10n" href="{% static 'pdfjs/web/locale/locale.properties' %}"/>
+<script src="{% static 'pdfjs/web/l10n.js' %}"></script>
+<script src="{% static 'pdfjs/build/pdf.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/pdfviewer.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewer.css' %}" />
+{% endblock %}
+
+{% block title %}Adatozz - {{ object.name }}{% endblock %}
+
+{% block body %}
+<div id="pdfviewer" data-src="{{ object.pdf_file.url }}" class="row">
+{% include 'viewerjs/viewer.html' %}
+</div>
+<form action="{% block form_action_url %}{% endblock %}" method="post" role="form">
+    <div class="row collapsible">
+        <h2 class="collapsible-heading">General information</h2>
+        <div class="collapsible-content">
+            <div class="form-horizontal col-lg-6">
+                <div class="form-group form-group-sm">
+                    <label for="{{ form.name.id_for_label}}" class="control-label col-lg-3">
+                        {{ form.name.label }}
+                    </label>
+                    <div class="col-lg-9">
+                        {{ form.name }}
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="{{ form.agreement_number.id_for_label}}" class="control-label col-lg-3">
+                        {{ form.agreement_number.label }}
+                    </label>
+                    <div class="col-lg-9">
+                        {{ form.agreement_number }}
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="{{ form.campaign_start.id_for_label}}" class="control-label col-lg-3">
+                        Campaign from
+                    </label>
+                    <div class="col-lg-4">
+                        {{ form.campaign_start }}
+                    </div>
+                    <label for="{{ form.campaign_end.id_for_label}}" class="control-label col-lg-1">
+                        to
+                    </label>
+                    <div class="col-lg-4">
+                        {{ form.campaign_end }}
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="{{ form.total.id_for_label}}" class="control-label col-lg-3">
+                        {{ form.total.label }}
+                    </label>
+                    <div class="col-lg-9">
+                        {{ form.total }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-horizontal col-lg-6">
+                <div class="form-group form-group-sm">
+                    <label for="{{ form.signed_on.id_for_label}}" class="control-label col-lg-3">
+                        {{ form.signed_on.label }}
+                    </label>
+                    <div class="col-lg-9">
+                        {{ form.signed_on }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.comment.id_for_label}}" class="control-label col-lg-3">
+                        {{ form.comment.label }}
+                    </label>
+                    <div class="col-lg-9">
+                        {{ form.comment }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Expenses</h2>
+        <div class="expense-table-outer">
+        <table class="row-formset table table-striped">
+            <thead>
+                <tr>
+                    {% for field in form.expense_formset.0 %}
+                        {% if not field.is_hidden %}
+                            <th>{{ field.label }}</th>
+                        {% else %}
+                            <th style="display: none"></th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in form.expense_formset %}
+                    <tr class="form-group form-group-sm">
+                        {% for field in row %}
+                            {% if not field.is_hidden %}
+                                <td{% if '_date' in field.name %} class="dateinput"{% endif %}> {# TODO: less brittle #}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                </td>
+                            {% else %}
+                                <td style="display: none">{{ field }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-primary">{% block form_submit_text %}{% endblock %}</button>
+        <a href="{% block form_cancel_url %}{% endblock %}" class="btn btn-default">{% block form_cancel_text %}Cancel{% endblock %}</a>
+        {% csrf_token %}
+        {{ form.expense_formset.management_form }}
+    </div>
+</form>
+{% endblock %}
