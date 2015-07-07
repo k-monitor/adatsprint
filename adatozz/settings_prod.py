@@ -1,0 +1,20 @@
+import os
+
+from adatozz.settings import *
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['adatsprint.k-monitor.hu']
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'adatozz',
+    }
+}
+
+STATIC_ROOT = '/home/adatozz/collected_static/'
+MEDIA_ROOT = '/home/adatozz/uploads/'
+MEDIA_URL = '/uploads/'
