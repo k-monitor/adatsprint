@@ -6,7 +6,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['adatsprint.k-monitor.hu']
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+with open('/home/adatozz/DJANGO_SECRET_KEY') as f:
+    SECRET_KEY = f.read()
 
 DATABASES = {
     'default': {
