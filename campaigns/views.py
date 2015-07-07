@@ -197,7 +197,7 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
         return context
 
 
-class VerifyDispatch(MPStatusMixin, generic.RedirectView):
+class VerifyDispatch(BaseDispatchView):
     status = MP.STATUS.PROCESSED
     pattern_name = 'verify_claim'
 
