@@ -1,7 +1,8 @@
 * Translations
-* Prevent same user from processing and verifying same MP
 * Add dynamic formsets (js)
 * Custom 404 pages
 * Add warning when declared total differs from actual total
 * Handle forms errors
 * "Cancel" button on forms should reset status
+* handle empty lists in claim views
+* set up error reporting
