@@ -76,3 +76,18 @@ next to arrows):
            +------+
            | DONE |
            +------+
+
+Deploying
+---------
+
+Make sure you use the correct settings file when running management commands:
+
+    DJANGO_SETTINGS_MODULE=adatozz.settings_prod python manage.py migrate
+
+To start gunicorn:
+
+    gunicorn -c gunicorn_confi.py adatozz.wsgi:application
+
+To reload gunicorn (after code change for example):
+
+    kill -HUP $(cat adatozz.pid)
