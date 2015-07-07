@@ -115,12 +115,18 @@ class MPEvent(models.Model):
         VERIFY_START = 'verify start'
         VERIFY_DONE = 'verify done'
 
+        PROCESS_UNCLAIM = 'process unclaim'
+        VERIFY_UNCLAIM = 'verify unclaim'
+
         choices = [
             (INSERTED, _("inserted")),
             (PROCESS_START, _("process start")),
             (PROCESS_DONE, _("process done")),
             (VERIFY_START, _("verify start")),
             (VERIFY_DONE, _("verify done")),
+
+            (PROCESS_UNCLAIM, _("process unclaim")),
+            (VERIFY_UNCLAIM, _("verify unclaim")),
         ]
 
     MP = models.ForeignKey('MP', verbose_name=_("MP"), related_name='events')

@@ -3,6 +3,7 @@ import random
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.forms.models import inlineformset_factory
+from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
@@ -107,6 +108,31 @@ class BaseClaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.Redi
         return super(BaseClaimView, self).get(request, *args, **kwargs)
 
 
+class BaseUnclaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.View):
+    """
+    Un-claim the given MP.
+    This action should not be needed normally and should only be used if you
+    understand the consequences (could lead to data loss).
+    """
+    status = None
+    next_status = None
+    action = None
+    pattern_name = None
+
+    def post(self, request, *args, **kwargs):
+        assert self.status is not None
+        assert self.next_status is not None
+        assert self.action is not None
+        assert self.pattern_name is not None
+
+        self.object = self.get_object()
+        self.object.status = self.next_status
+        self.object.save()
+        self.record()
+
+        return redirect(self.pattern_name)
+
+
 class ProcessLandingView(MPStatusMixin, generic.ListView):
     """
     Display a list of MPs that need to be processed.
@@ -138,6 +164,13 @@ class ClaimProcessView(BaseClaimView):
     next_status = MP.STATUS.PROCESSING
     action = MPEvent.ACTION.PROCESS_START
     pattern_name = 'campaigns:process'
+
+
+class UnclaimProcessView(BaseUnclaimView):
+    status = MP.STATUS.PROCESSING
+    next_status = MP.STATUS.UNPROCESSED
+    action = MPEvent.ACTION.PROCESS_UNCLAIM
+    pattern_name = 'campaigns:process_pending'
 
 
 class ProcessView(MPEventMixin, MPStatusMixin, generic.UpdateView):
@@ -205,6 +238,13 @@ class ClaimVerifyView(BaseClaimView):
     next_status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_START
     pattern_name = 'campaigns:verify'
+
+
+class UnclaimVerifyView(BaseUnclaimView):
+    status = MP.STATUS.VERIFYING
+    next_status = MP.STATUS.PROCESSED
+    action = MPEvent.ACTION.VERIFY_UNCLAIM
+    pattern_name = 'campaigns:verify_pending'
 
 
 class VerifyView(MPEventMixin, MPStatusMixin, generic.UpdateView):

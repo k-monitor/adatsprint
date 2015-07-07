@@ -9,6 +9,7 @@
                 <th>Campaign</th>
                 <th>MP</th>
                 <th>History</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,15 @@
                                 </li>
                             {% endfor %}
                         </ul>
+                    </td>
+                    <td>
+                        <form action="{% url 'campaigns:process_unclaim' pk=mp.pk %}" method="post">
+                            <button class="btn" type="submit">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                Unclaim
+                            </button>
+                            {% csrf_token %}
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
