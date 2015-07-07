@@ -19,7 +19,7 @@
         <div class="container">
         {% block navigation %}
         {% activeurl menu="no" %}
-            <nav class="navbar navbar-default">
+            <nav class="row navbar navbar-default">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'campaigns:landing' %}">Adatsprint</a>
                 </div>
@@ -53,6 +53,16 @@
                 </ul>
             </nav>
         {% endactiveurl %}
+        {% endblock %}
+        {% block messages %}
+            {% for message in messages %}
+                <div class="row alert {{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message}}
+                </div>
+            {% endfor %}
         {% endblock %}
         {% block body %}{% endblock %}
         </div>

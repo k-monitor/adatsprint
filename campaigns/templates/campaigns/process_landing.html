@@ -11,40 +11,14 @@
         </div>
     </div>
 
+    <div class="row center-content">
     {% if user.is_authenticated %}
-    <div class="row">
-        <a href="{% url 'campaigns:process_dispatch' %}" class="btn btn-primary btn-lg">
+        <a href="{% url 'campaigns:process_dispatch' %}" class="btn btn-primary btn-gigantic">
             <span class="glyphicon glyphicon-random"></span>
             Process random MP
         </a>
-    </div>
+    {% else %}
+        <em>Login to verify</em>
     {% endif %}
-
-    <table class="table table-striped row">
-        <thead>
-            <tr>
-                <th>Campaign</th>
-                <th>MP</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for mp in object_list %}
-                <tr>
-                    <td>{{ mp.campaign.name }}</td>
-                    <td>{{ mp.name }}</td>
-                    <td>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'campaigns:process_claim' pk=mp.pk %}" class="btn btn-default">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                Process
-                            </a>
-                        {% else %}
-                            <em>Log in to process</em>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    </div>
 {% endblock %}

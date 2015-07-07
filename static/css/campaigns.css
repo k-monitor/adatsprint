@@ -45,3 +45,14 @@ table.row-formset > tbody > tr > td.dateinput {
 .datepicker {
     z-index: 9000; /* Fix for datepicker appearing under fixed table header */
 }
+
+.btn-gigantic {
+  padding: 20px 32px;
+  font-size: 36px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+
+.center-content {
+    text-align: center;
+}

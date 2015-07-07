@@ -11,7 +11,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/viewer.css' %}" />
 {% endblock %}
 
-{% block title %}Adatozz - {{ object.name }}{% endblock %}
+{% block title %}Adatsprint - {{ object.name }}{% endblock %}
+
+{# We disable navigation on forms to prevent people from navigating away #}
+{% block navigation %}{% endblock %}
 
 {% block body %}
 <div id="pdfviewer" data-src="{{ object.pdf_file.url }}" class="row">

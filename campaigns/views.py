@@ -4,8 +4,11 @@ from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
+
+from braces.views import MessageMixin
 
 from .forms import MPProcessForm, MPVerifyForm, EXPENSE_FORMSET_FIELDS, EXPENSE_FORMSET_WDIGETS
 from .models import Campaign, MP, MPEvent, Expense
@@ -63,6 +66,14 @@ class MPEventMixin(object):
         return response
 
 
+class FormErrorMessageMixin(MessageMixin):
+    form_invalid_message = _("There are some errors in your submission. Please fix them and try again.")
+
+    def form_invalid(self, form):
+        self.messages.error(self.form_invalid_message)
+        return super(FormErrorMessageMixin, self).form_invalid(form)
+
+
 class BaseDispatchView(MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     A view that picks a random MP with the given status (MPStatusMixin) and
@@ -108,7 +119,7 @@ class BaseClaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.Redi
         return super(BaseClaimView, self).get(request, *args, **kwargs)
 
 
-class BaseUnclaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.View):
+class BaseUnclaimView(MessageMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.View):
     """
     Un-claim the given MP.
     This action should not be needed normally and should only be used if you
@@ -118,17 +129,20 @@ class BaseUnclaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.Vi
     next_status = None
     action = None
     pattern_name = None
+    success_message = None
 
     def post(self, request, *args, **kwargs):
         assert self.status is not None
         assert self.next_status is not None
         assert self.action is not None
         assert self.pattern_name is not None
+        assert self.success_message is not None
 
         self.object = self.get_object()
         self.object.status = self.next_status
         self.object.save()
         self.record()
+        self.messages.success(self.success_message)
 
         return redirect(self.pattern_name)
 
@@ -139,11 +153,6 @@ class ProcessLandingView(MPStatusMixin, generic.ListView):
     """
     status = MP.STATUS.UNPROCESSED
     template_name = 'campaigns/process_landing.html'
-
-    def get_queryset(self):
-        queryset = super(ProcessLandingView, self).get_queryset()
-        queryset = queryset.select_related('campaign')
-        return queryset
 
     def get_context_data(self, **kwargs):
         context = super(ProcessLandingView, self).get_context_data(**kwargs)
@@ -171,9 +180,10 @@ class UnclaimProcessView(BaseUnclaimView):
     next_status = MP.STATUS.UNPROCESSED
     action = MPEvent.ACTION.PROCESS_UNCLAIM
     pattern_name = 'campaigns:process_pending'
+    success_message = _("The MP is back in the to-process list.")
 
 
-class ProcessView(MPEventMixin, MPStatusMixin, generic.UpdateView):
+class ProcessView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.PROCESSING
     action = MPEvent.ACTION.PROCESS_DONE
     form_class = MPProcessForm
@@ -193,6 +203,7 @@ class ProcessView(MPEventMixin, MPStatusMixin, generic.UpdateView):
     def form_valid(self, form):
         response = super(ProcessView, self).form_valid(form)
         self.record()
+        self.messages.success(_("The MP has been processed. On to the next one!"))
         return response
 
 
@@ -213,11 +224,6 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
     """
     status = MP.STATUS.PROCESSED
     template_name = 'campaigns/verify_landing.html'
-
-    def get_queryset(self):
-        queryset = super(VerifyLandingView, self).get_queryset()
-        queryset = queryset.select_related('campaign')
-        return queryset
 
     def get_context_data(self, **kwargs):
         context = super(VerifyLandingView, self).get_context_data(**kwargs)
@@ -245,9 +251,10 @@ class UnclaimVerifyView(BaseUnclaimView):
     next_status = MP.STATUS.PROCESSED
     action = MPEvent.ACTION.VERIFY_UNCLAIM
     pattern_name = 'campaigns:verify_pending'
+    success_message = _("The MP is back in the to-verify list.")
 
 
-class VerifyView(MPEventMixin, MPStatusMixin, generic.UpdateView):
+class VerifyView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_DONE
     form_class = MPVerifyForm
@@ -267,6 +274,7 @@ class VerifyView(MPEventMixin, MPStatusMixin, generic.UpdateView):
     def form_valid(self, form):
         response = super(VerifyView, self).form_valid(form)
         self.record()
+        self.messages.success(_("The MP has been verified. On to the next one!"))
         return response
 
 
