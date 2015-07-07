@@ -19,6 +19,6 @@ from django.views import generic
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'', include('campaigns.urls', namespace='campaigns')),
 ]

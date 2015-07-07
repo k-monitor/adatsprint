@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block body %}
-    <h1>List of MP who are currently being verified</h1>
+    <h1>{% trans 'List of MP who are currently being verified' %}</h1>
 
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Campaign</th>
-                <th>MP</th>
-                <th>History</th>
-                <th>Action</th>
+                <th>{% trans 'Campaign' %}</th>
+                <th>{% trans 'MP' %}</th>
+                <th>{% trans 'History' %}</th>
+                <th>{% trans 'Action' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +34,7 @@
                         <form action="{% url 'campaigns:verify_unclaim' pk=mp.pk %}" method="post">
                             <button class="btn" type="submit">
                                 <span class="glyphicon glyphicon-remove"></span>
-                                Unclaim
+                                {% trans 'Unclaim' %}
                             </button>
                             {% csrf_token %}
                         </form>

@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block body %}
-    <h1 class="row">List of MP that need processing</h1>
+    <h1 class="row">{% trans 'List of MP that need processing' %}</h1>
     
     <div class="row">
         <div class="progress landing-progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {% widthratio completed total 100 %}%;">
-                Completed: {{ completed }} / {{ total }}
+                {% blocktrans %}Completed: {{ completed }} / {{ total }}{% endblocktrans %}
             </div>
         </div>
     </div>
@@ -15,10 +17,10 @@
     {% if user.is_authenticated %}
         <a href="{% url 'campaigns:process_dispatch' %}" class="btn btn-primary btn-gigantic">
             <span class="glyphicon glyphicon-random"></span>
-            Process random MP
+            {% trans 'Process random MP' %}
         </a>
     {% else %}
-        <em>Login to verify</em>
+        <em>{% trans 'Login to verify' %}</em>
     {% endif %}
     </div>
 {% endblock %}

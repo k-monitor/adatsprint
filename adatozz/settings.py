@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'campaigns',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,3 +125,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+LOGIN_REDIRECT_URL = 'campaigns:landing'

@@ -1,5 +1,6 @@
 {% load activeurl %}
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,31 +25,36 @@
                     <a class="navbar-brand" href="{% url 'campaigns:landing' %}">Adatsprint</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{% url 'campaigns:process_landing' %}">Process</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'campaigns:verify_landing' %}">Verify</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'campaigns:process_landing' %}">{% trans 'Process' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'campaigns:verify_landing' %}">{% trans 'Verify' %}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'accounts:login' %}">{% trans 'Login' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'accounts:register' %}">{% trans 'Register' %}</a>
+                        </li>
+                    {% endif %}
                     {% if user.is_staff %}
                         <li>
-                            <a href="{% url 'campaigns:process_pending' %}">Process (locked)</a>
+                            <a href="{% url 'campaigns:process_pending' %}">{% trans 'Process (locked)' %}</a>
                         </li>
                         <li>
-                            <a href="{% url 'campaigns:verify_pending' %}">Verify (locked)</a>
+                            <a href="{% url 'campaigns:verify_pending' %}">{% trans 'Verify (locked)' %}</a>
                         </li>
                         <li>
-                            <a href="{% url 'admin:app_list' 'campaigns' %}">Admin</a>
+                            <a href="{% url 'admin:app_list' 'campaigns' %}">{% trans 'Admin' %}</a>
                         </li>
                     {% endif %}
                     {% if user.is_authenticated %}
                         <li>
-                            <a href="{% url 'auth:logout' %}">Logout</a>
+                            <a href="{% url 'accounts:logout' %}">{% trans 'Logout' %}</a>
                         </li>
-                    {% else %}
-                    <li>
-                        <a href="#TODO">Register</a>
-                    </li>
                     {% endif %}
                 </ul>
             </nav>

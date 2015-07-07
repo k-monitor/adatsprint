@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
-from braces.views import MessageMixin
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin, MessageMixin
 
 from .forms import MPProcessForm, MPVerifyForm, EXPENSE_FORMSET_FIELDS, EXPENSE_FORMSET_WDIGETS
 from .models import Campaign, MP, MPEvent, Expense
@@ -74,7 +74,7 @@ class FormErrorMessageMixin(MessageMixin):
         return super(FormErrorMessageMixin, self).form_invalid(form)
 
 
-class BaseDispatchView(MPStatusMixin, SingleObjectMixin, generic.RedirectView):
+class BaseDispatchView(LoginRequiredMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     A view that picks a random MP with the given status (MPStatusMixin) and
     redirect to the `pattern_name` associated with that MP.
@@ -88,7 +88,7 @@ class BaseDispatchView(MPStatusMixin, SingleObjectMixin, generic.RedirectView):
         return super(BaseDispatchView, self).get_redirect_url(pk=mp_id)
 
 
-class BaseClaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
+class BaseClaimView(LoginRequiredMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     Get an MP based on the pk provided in the URL.
     Update its status based on the view's attribute (set by child classes) and
@@ -119,7 +119,7 @@ class BaseClaimView(MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.Redi
         return super(BaseClaimView, self).get(request, *args, **kwargs)
 
 
-class BaseUnclaimView(MessageMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.View):
+class BaseUnclaimView(LoginRequiredMixin, StaffuserRequiredMixin, MessageMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.View):
     """
     Un-claim the given MP.
     This action should not be needed normally and should only be used if you
@@ -183,7 +183,7 @@ class UnclaimProcessView(BaseUnclaimView):
     success_message = _("The MP is back in the to-process list.")
 
 
-class ProcessView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
+class ProcessView(LoginRequiredMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.PROCESSING
     action = MPEvent.ACTION.PROCESS_DONE
     form_class = MPProcessForm
@@ -207,7 +207,7 @@ class ProcessView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.Up
         return response
 
 
-class PendingProcessListView(MPStatusMixin, generic.ListView):
+class PendingProcessListView(StaffuserRequiredMixin, MPStatusMixin, generic.ListView):
     status = MP.STATUS.PROCESSING
     template_name = 'campaigns/process_pending.html'
 
@@ -254,7 +254,7 @@ class UnclaimVerifyView(BaseUnclaimView):
     success_message = _("The MP is back in the to-verify list.")
 
 
-class VerifyView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
+class VerifyView(LoginRequiredMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_DONE
     form_class = MPVerifyForm
@@ -278,6 +278,6 @@ class VerifyView(FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.Upd
         return response
 
 
-class PendingVerifyListView(MPStatusMixin, generic.ListView):
+class PendingVerifyListView(StaffuserRequiredMixin, MPStatusMixin, generic.ListView):
     status = MP.STATUS.VERIFYING
     template_name = 'campaigns/verify_pending.html'

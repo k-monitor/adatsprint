@@ -1,5 +1,7 @@
 {% extends 'campaigns/baseform.html' %}
 
+{% load i18n %}
+
 {% block form_action_url %}{% url 'campaigns:verify' pk=object.pk %}{% endblock %}
-{% block form_submit_text %}Verify{% endblock %}
+{% block form_submit_text %}{% trans 'Verify' %}{% endblock %}
 {% block form_cancel_url %}{% url 'campaigns:verify_landing' %}{% endblock %}

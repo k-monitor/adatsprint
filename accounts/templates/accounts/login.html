@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+{% load i18n %}
+
+{% block body %}
+<form action="{% block form_action_url %}{% endblock %}" method="post" role="form" class="row">
+    <fieldset class="col-md-6 col-md-offset-3">
+        {{ form|bootstrap }}
+        <button class="btn btn-primary" type="submit">{% trans 'Login' %}</button>
+        {% csrf_token %}
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load staticfiles %}
 
 {% block extra_head %}
@@ -22,7 +23,7 @@
 </div>
 <form action="{% block form_action_url %}{% endblock %}" method="post" role="form">
     <div class="row collapsible">
-        <h2 class="collapsible-heading">General information</h2>
+        <h2 class="collapsible-heading">{% trans 'General information' %}</h2>
         <div class="collapsible-content">
             <div class="form-horizontal col-lg-6">
                 <div class="form-group form-group-sm">
@@ -43,13 +44,13 @@
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="{{ form.campaign_start.id_for_label}}" class="control-label col-lg-3">
-                        Campaign from
+                        {% trans 'Campaign' %}
                     </label>
                     <div class="col-lg-4">
                         {{ form.campaign_start }}
                     </div>
                     <label for="{{ form.campaign_end.id_for_label}}" class="control-label col-lg-1">
-                        to
+                        -
                     </label>
                     <div class="col-lg-4">
                         {{ form.campaign_end }}
@@ -86,7 +87,7 @@
         </div>
     </div>
     <div class="row">
-        <h2>Expenses</h2>
+        <h2>{% trans 'Expenses' %}</h2>
         <div class="expense-table-outer">
         <table class="row-formset table table-striped">
             <thead>
@@ -121,7 +122,9 @@
     </div>
     <div class="row">
         <button type="submit" class="btn btn-primary">{% block form_submit_text %}{% endblock %}</button>
-        <a href="{% block form_cancel_url %}{% endblock %}" class="btn btn-default">{% block form_cancel_text %}Cancel{% endblock %}</a>
+        <a href="{% block form_cancel_url %}{% endblock %}" class="btn btn-default">
+            {% block form_cancel_text %}{% trans 'Cancel' %}{% endblock %}
+        </a>
         {% csrf_token %}
         {{ form.expense_formset.management_form }}
     </div>
