@@ -3,4 +3,4 @@ django-flat-theme==0.9.3
 django-bootstrap-form==3.2
 PyPDF2==1.24
 django-activeurl==0.1.8
-django-braces==1.8.0
+-e git+https://github.com/bmispelon/django-braces.git@remove-u-prefixes#egg=django-braces
