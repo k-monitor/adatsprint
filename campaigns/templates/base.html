@@ -1,8 +1,9 @@
+{% load activeurl %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Adatsprint{% endblock %}</title>
         <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
@@ -16,6 +17,43 @@
     </head>
     <body>
         <div class="container">
+        {% block navigation %}
+        {% activeurl menu="no" %}
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{% url 'campaigns:landing' %}">Adatsprint</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{% url 'campaigns:process_landing' %}">Process</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'campaigns:verify_landing' %}">Verify</a>
+                    </li>
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="{% url 'campaigns:process_pending' %}">Process (locked)</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'campaigns:verify_pending' %}">Verify (locked)</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:app_list' 'campaigns' %}">Admin</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'auth:logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                    <li>
+                        <a href="#TODO">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endactiveurl %}
+        {% endblock %}
         {% block body %}{% endblock %}
         </div>
     </body>

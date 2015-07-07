@@ -10,19 +10,17 @@ from .forms import MPProcessForm, MPVerifyForm, EXPENSE_FORMSET_FIELDS, EXPENSE_
 from .models import Campaign, MP, MPEvent, Expense
 
 
-class CampaignListView(generic.ListView):
-    model = Campaign
-    template_name = 'campaigns/campaign_list.html'
+class LandingView(generic.TemplateView):
+    template_name = 'campaigns/landing.html'
 
-
-class CampaignDetailView(generic.DetailView):
-    model = Campaign
-    template_name = 'campaigns/campaign_detail.html'
-
-
-class MPDetailView(generic.DetailView):
-    model = MP
-    template_name = 'campaigns/MP_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+        context.update({
+            'completed': MP.objects.completed().count(),
+            'verified': MP.objects.verified().count(),
+            'total': MP.objects.count(),
+        })
+        return context
 
 
 class MPStatusMixin(object):

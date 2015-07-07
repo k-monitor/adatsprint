@@ -30,6 +30,10 @@ table.row-formset > tbody > tr > td.dateinput {
     background-repeat: repeat;  /* Workaround for bootstrap bug */
     min-width: 10em;  /* To keep label legible at small percentages */
 }
+.landing-progress .progress-bar a {
+    text-decoration: none;
+    color: inherit;
+}
 
 .collapser {
     float: right;

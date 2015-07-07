@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'flat',
     'bootstrapform',
+    'django_activeurl',
 
     'django.contrib.admin',
     'django.contrib.auth',

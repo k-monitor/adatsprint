@@ -19,6 +19,6 @@ from django.views import generic
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^viewerjs/$', generic.TemplateView.as_view(template_name='viewerjs.html'), name='viewerjs'),
+    url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'', include('campaigns.urls', namespace='campaigns')),
 ]

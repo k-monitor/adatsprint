@@ -9,12 +9,14 @@
         </div>
     </div>
 
+    {% if user.is_authenticated %}
     <div class="row">
         <a href="{% url 'campaigns:process_dispatch' %}" class="btn btn-primary btn-lg">
             <span class="glyphicon glyphicon-random"></span>
             Verify random MP
         </a>
     </div>
+    {% endif %}
 
     <table class="table table-striped row">
         <thead>
@@ -30,10 +32,14 @@
                     <td>{{ mp.campaign.name }}</td>
                     <td>{{ mp.name }}</td>
                     <td>
-                        <a href="{% url 'campaigns:verify_claim' pk=mp.pk %}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            Verify
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'campaigns:verify_claim' pk=mp.pk %}" class="btn btn-default">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                Verify
+                            </a>
+                        {% else %}
+                            <em>Log in to verify</em>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

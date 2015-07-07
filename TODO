@@ -5,5 +5,5 @@
 * Add dynamic formsets (js)
 * Custom 404 pages
 * Add warning when declared total differs from actual total
-* Navigation bar
 * Handle forms errors
+* Add actions to unlock MPs in pending views

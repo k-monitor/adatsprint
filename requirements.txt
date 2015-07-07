@@ -2,3 +2,4 @@ Django==1.8.2
 django-flat-theme==0.9.3
 django-bootstrap-form==3.2
 PyPDF2==1.24
+django-activeurl==0.1.8
