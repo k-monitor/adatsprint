@@ -132,7 +132,7 @@ class ProcessLandingView(MPStatusMixin, generic.ListView):
 
 class ProcessDispatch(BaseDispatchView):
     status = MP.STATUS.UNPROCESSED
-    pattern_name = 'process_claim'
+    pattern_name = 'campaigns:process_claim'
 
 
 class ClaimProcessView(BaseClaimView):
@@ -199,7 +199,7 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
 
 class VerifyDispatch(BaseDispatchView):
     status = MP.STATUS.PROCESSED
-    pattern_name = 'verify_claim'
+    pattern_name = 'campaigns:verify_claim'
 
 
 class ClaimVerifyView(BaseClaimView):
