@@ -6,8 +6,10 @@ from .models import MP, Expense
 
 class BaseMPForm(forms.ModelForm):
     NEXT_STATUS = None
+    USER_ATTR = None
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
         super(BaseMPForm, self).__init__(*args, **kwargs)
 
         ExpenseFormset = inlineformset_factory(MP, Expense, **self.get_formset_kwargs())
@@ -35,6 +37,8 @@ class BaseMPForm(forms.ModelForm):
         assert commit  # commit=False is not supported
         instance = super(BaseMPForm, self).save(commit=False)
         instance.status = self.NEXT_STATUS
+        if self.USER_ATTR is not None:
+            setattr(instance, self.USER_ATTR, self.user)
         if commit:
             instance.save()
             self.expense_formset.save()
@@ -62,6 +66,7 @@ class BaseMPForm(forms.ModelForm):
 
 class MPProcessForm(BaseMPForm):
     NEXT_STATUS = MP.STATUS.PROCESSED
+    USER_ATTR = 'processed_by'
 
     def get_formset_kwargs(self):
         assert self.instance is not None
@@ -72,6 +77,7 @@ class MPProcessForm(BaseMPForm):
 
 class MPVerifyForm(BaseMPForm):
     NEXT_STATUS = MP.STATUS.VERIFIED
+    USER_ATTR = 'verified_by'
 
     def get_formset_kwargs(self):
         assert self.instance is not None

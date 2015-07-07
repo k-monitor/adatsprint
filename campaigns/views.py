@@ -99,9 +99,12 @@ class BaseClaimView(LoginRequiredMixin, MPEventMixin, MPStatusMixin, SingleObjec
     next_status = None
     action = None
     permanent = False
+    user_attr = None
 
     def get_queryset(self):
         queryset = super(BaseClaimView, self).get_queryset()
+        if self.user_attr is not None:
+            queryset = queryset.exclude(**{self.user_attr: self.request.user})
         queryset = queryset.select_for_update()  # prevents race condition
         return queryset
 
@@ -173,6 +176,7 @@ class ClaimProcessView(BaseClaimView):
     next_status = MP.STATUS.PROCESSING
     action = MPEvent.ACTION.PROCESS_START
     pattern_name = 'campaigns:process'
+    user_attr = 'processed_by'
 
 
 class UnclaimProcessView(BaseUnclaimView):
@@ -188,6 +192,11 @@ class ProcessView(LoginRequiredMixin, FormErrorMessageMixin, MPEventMixin, MPSta
     action = MPEvent.ACTION.PROCESS_DONE
     form_class = MPProcessForm
     template_name = 'campaigns/process.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(ProcessView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_success_url(self):
         urls = {
@@ -244,6 +253,7 @@ class ClaimVerifyView(BaseClaimView):
     next_status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_START
     pattern_name = 'campaigns:verify'
+    user_attr = 'verified_by'
 
 
 class UnclaimVerifyView(BaseUnclaimView):
@@ -259,6 +269,11 @@ class VerifyView(LoginRequiredMixin, FormErrorMessageMixin, MPEventMixin, MPStat
     action = MPEvent.ACTION.VERIFY_DONE
     form_class = MPVerifyForm
     template_name = 'campaigns/verify.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(ProcessView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def get_success_url(self):
         urls = {

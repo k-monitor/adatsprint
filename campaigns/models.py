@@ -86,6 +86,9 @@ class MP(models.Model):
 
     status = models.PositiveIntegerField(_("status"), choices=STATUS.choices, default=STATUS.UNPROCESSED)
 
+    processed_by = models.ForeignKey('auth.User', verbose_name=_("processed by"), related_name='+', blank=True, null=True)
+    verified_by = models.ForeignKey('auth.User', verbose_name=_("verified by"), related_name='+', blank=True, null=True)
+
     objects = MPQuerySet.as_manager()
 
     class Meta:
