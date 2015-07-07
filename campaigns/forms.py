@@ -34,7 +34,7 @@ class BaseMPForm(forms.ModelForm):
     def save(self, commit=True):
         assert commit  # commit=False is not supported
         instance = super(BaseMPForm, self).save(commit=False)
-        instance.status = MP.STATUS.PROCESSED
+        instance.status = self.NEXT_STATUS
         if commit:
             instance.save()
             self.expense_formset.save()
