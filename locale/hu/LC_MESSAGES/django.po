@@ -1,0 +1,343 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-07 22:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Marietta Le <le.marietta@k-mointor.hu>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/templates/accounts/login.html:10 campaigns/templates/base.html:37
+msgid "Login"
+msgstr "Belépés"
+
+#: accounts/templates/accounts/register.html:10
+#: campaigns/templates/base.html:40
+msgid "Register"
+msgstr "Regisztráció"
+
+#: accounts/views.py:13
+msgid "Logged out successfully. Thanks for helping out!"
+msgstr "Sikeresen kiléptél. Köszönjük a segítséged!"
+
+#: accounts/views.py:25
+msgid "User account created. You can now log in."
+msgstr "Felhasználó létrehozva, most már be tudsz lépni."
+
+#: campaigns/models.py:8 campaigns/models.py:76
+msgid "name"
+msgstr "név"
+
+#: campaigns/models.py:9
+msgid "created on"
+msgstr "létrehozva"
+
+#: campaigns/models.py:32 campaigns/models.py:75
+msgid "campaign"
+msgstr "kampány"
+
+#: campaigns/models.py:33
+msgid "campaigns"
+msgstr "kampányok"
+
+#: campaigns/models.py:68
+msgid "unprocessed"
+msgstr "feldolgozásra vár"
+
+#: campaigns/models.py:69
+msgid "processing"
+msgstr "folyamatban"
+
+#: campaigns/models.py:70
+msgid "processed"
+msgstr "feldolgozva"
+
+#: campaigns/models.py:71
+msgid "verifying"
+msgstr "ellenőrzés alatt"
+
+#: campaigns/models.py:72
+msgid "verified"
+msgstr "ellenőrizve"
+
+#: campaigns/models.py:77
+msgid "agreement number"
+msgstr "Megállapodás száma"
+
+#: campaigns/models.py:78
+msgid "campaign start"
+msgstr "Kampányidőszak kezdete"
+
+#: campaigns/models.py:79
+msgid "campaign end"
+msgstr "Kampányidőszak vége"
+
+#: campaigns/models.py:80
+msgid "total"
+msgstr "Teljes elszámolt összeg"
+
+#: campaigns/models.py:81
+msgid "signed on"
+msgstr "Aláírás kelte"
+
+#: campaigns/models.py:82
+msgid "comment"
+msgstr "Megjegyzés"
+
+#: campaigns/models.py:84
+msgid "PDF file"
+msgstr "pdf fájl"
+
+#: campaigns/models.py:85
+msgid "PDF page count"
+msgstr "pdf oldalak száma"
+
+#: campaigns/models.py:87
+msgid "status"
+msgstr "státusz"
+
+#: campaigns/models.py:89
+msgid "processed by"
+msgstr "Feldolgozta"
+
+#: campaigns/models.py:90
+msgid "verified by"
+msgstr "Ellenőrizte"
+
+#: campaigns/models.py:95 campaigns/models.py:135 campaigns/models.py:142
+#: campaigns/templates/campaigns/process_pending.html:12
+#: campaigns/templates/campaigns/verify_pending.html:12
+msgid "MP"
+msgstr "Képviselőjelölt"
+
+#: campaigns/models.py:96
+msgid "MPs"
+msgstr "Képviselőjelöltek"
+
+#: campaigns/models.py:125
+msgid "inserted"
+msgstr "Hozzáadva"
+
+#: campaigns/models.py:126
+msgid "process start"
+msgstr "Folyamat megkezdése"
+
+#: campaigns/models.py:127
+msgid "process done"
+msgstr "Elkészült"
+
+#: campaigns/models.py:128
+msgid "verify start"
+msgstr "Ellenőrzés megkezdése"
+
+#: campaigns/models.py:129
+msgid "verify done"
+msgstr "Ellenőrizve"
+
+#: campaigns/models.py:131
+msgid "process unclaim"
+msgstr "Feldolgozás megszakítása"
+
+#: campaigns/models.py:132
+msgid "verify unclaim"
+msgstr "Ellenőrzés megszakítása"
+
+#: campaigns/models.py:136
+msgid "action"
+msgstr "Esemény"
+
+#: campaigns/models.py:137
+msgid "user"
+msgstr "Felhasználó"
+
+#: campaigns/models.py:138
+msgid "happened on"
+msgstr "Időpont"
+
+#: campaigns/models.py:143
+msgid "row number"
+msgstr "Sor száma"
+
+#: campaigns/models.py:144
+msgid "invoice reference"
+msgstr "Számla/bizonylat sorszáma"
+
+#: campaigns/models.py:145
+msgid "issue date"
+msgstr "Számla/bizonylat kiállítási dátuma"
+
+#: campaigns/models.py:146
+msgid "provider"
+msgstr "Szolgáltató"
+
+#: campaigns/models.py:147
+msgid "product"
+msgstr "Szolgáltatás/termék"
+
+#: campaigns/models.py:148
+msgid "payment date"
+msgstr "Pénzügyi teljesítés dátuma"
+
+#: campaigns/models.py:149
+msgid "purpose"
+msgstr "Indoklás"
+
+#: campaigns/models.py:150
+msgid "net amount"
+msgstr "Nettó összeg"
+
+#: campaigns/models.py:151
+msgid "VAT amount"
+msgstr "Áfa összege"
+
+#: campaigns/models.py:152
+msgid "gross amount"
+msgstr "Bruttó összeg"
+
+#: campaigns/models.py:153
+msgid "claimed amount"
+msgstr "Elszámolt támogatás"
+
+#: campaigns/models.py:156
+msgid "expense"
+msgstr "Költség"
+
+#: campaigns/models.py:157
+msgid "expenses"
+msgstr "Költségek"
+
+#: campaigns/templates/base.html:30
+#: campaigns/templates/campaigns/process.html:6
+msgid "Process"
+msgstr "Bevitel"
+
+#: campaigns/templates/base.html:33
+#: campaigns/templates/campaigns/verify.html:6
+msgid "Verify"
+msgstr "Ellenőrzés"
+
+#: campaigns/templates/base.html:45
+msgid "Process (locked)"
+msgstr "Bevitel (zárolt)"
+
+#: campaigns/templates/base.html:48
+msgid "Verify (locked)"
+msgstr "Ellenőrzés (zárolt)"
+
+#: campaigns/templates/base.html:51
+msgid "Admin"
+msgstr "Admin"
+
+#: campaigns/templates/base.html:56
+msgid "Logout"
+msgstr "Kilépés"
+
+#: campaigns/templates/campaigns/baseform.html:26
+msgid "General information"
+msgstr "Általános információk"
+
+#: campaigns/templates/campaigns/baseform.html:47
+#: campaigns/templates/campaigns/process_pending.html:11
+#: campaigns/templates/campaigns/verify_pending.html:11
+msgid "Campaign"
+msgstr "Kampány"
+
+#: campaigns/templates/campaigns/baseform.html:90
+msgid "Expenses"
+msgstr "Költségek"
+
+#: campaigns/templates/campaigns/baseform.html:126
+msgid "Cancel"
+msgstr "Visszavonás"
+
+#: campaigns/templates/campaigns/landing.html:7
+msgid "Welcome"
+msgstr "Üdvözlünk a Kampányköltség adatsprinten"
+
+#: campaigns/templates/campaigns/landing.html:13
+#: campaigns/templates/campaigns/process_landing.html:11
+#, python-format
+msgid "Completed: %(completed)s / %(total)s"
+msgstr "Kész: %(completed)s / Még van %(total)s"
+
+#: campaigns/templates/campaigns/landing.html:22
+#: campaigns/templates/campaigns/verify_landing.html:10
+#, python-format
+msgid "Verified: %(verified)s / %(total)s"
+msgstr "Ellenőrizve: %(verified)s / Még ellenőrzésre vár %(total)s"
+
+#: campaigns/templates/campaigns/process_landing.html:6
+msgid "List of MP that need processing"
+msgstr "Feldolgozásra váró képviselőjelöltek listája"
+
+#: campaigns/templates/campaigns/process_landing.html:20
+msgid "Process random MP"
+msgstr "Felszabadítok egy képviselőjelöltet!"
+
+#: campaigns/templates/campaigns/process_landing.html:23
+#: campaigns/templates/campaigns/verify_landing.html:21
+msgid "Login to verify"
+msgstr "Az ellenőrzés megkezdéséhez jelentkezz be"
+
+#: campaigns/templates/campaigns/process_pending.html:6
+msgid "List of MP who are currently being processed"
+msgstr "Feldolgozás alatt lévő képviselőjelöltek listája"
+
+#: campaigns/templates/campaigns/process_pending.html:13
+#: campaigns/templates/campaigns/verify_pending.html:13
+msgid "History"
+msgstr "Előzmények"
+
+#: campaigns/templates/campaigns/process_pending.html:14
+#: campaigns/templates/campaigns/verify_pending.html:14
+msgid "Action"
+msgstr "Esemény"
+
+#: campaigns/templates/campaigns/process_pending.html:37
+#: campaigns/templates/campaigns/verify_pending.html:37
+msgid "Unclaim"
+msgstr "Visszaadás"
+
+#: campaigns/templates/campaigns/verify_landing.html:6
+msgid "List of MP that need verifying"
+msgstr "Ellenőrzésre váró képviselőjelöltek listája"
+
+#: campaigns/templates/campaigns/verify_landing.html:18
+msgid "Verify random MP"
+msgstr "Ellenőrzök egy képviselőjelöltet!"
+
+#: campaigns/templates/campaigns/verify_pending.html:6
+msgid "List of MP who are currently being verified"
+msgstr "Ellenőrzés alatt álló képviselőjelöltek listája"
+
+#: campaigns/views.py:70
+msgid ""
+"There are some errors in your submission. Please fix them and try again."
+msgstr "Hibát találtunk a bevitt adatokban, kérünk, hogy nézd át, és próbálkozz újra."
+
+#: campaigns/views.py:187
+msgid "The MP is back in the to-process list."
+msgstr "A képviselőjelölt visszakerült a feldolgozásra váró listára."
+
+#: campaigns/views.py:215
+msgid "The MP has been processed. On to the next one!"
+msgstr "Ezt a képviselőjelöltet már felszabadították. Mehetsz a következőre!"
+
+#: campaigns/views.py:264
+msgid "The MP is back in the to-verify list."
+msgstr "A képviselőjelölt visszakerült az ellenőrzésre váró listába."
+
+#: campaigns/views.py:292
+msgid "The MP has been verified. On to the next one!"
+msgstr "Ezt a képviselőjelöltet már ellenőrizték. Mehetsz a következőre!"
