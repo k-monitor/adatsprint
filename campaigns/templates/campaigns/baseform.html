@@ -103,7 +103,7 @@
             </thead>
             <tbody>
                 {% for row in form.expense_formset %}
-                    <tr class="form-group form-group-sm">
+                    <tr class="form-group form-group-sm{% if forloop.last %} formset-empty-row{% endif %}" {% if forloop.last %}data-formset-prefix="{{ form.expense_formset.prefix }}"{% endif %}>
                         {% for field in row %}
                             {% if not field.is_hidden %}
                                 <td{% if '_date' in field.name %} class="dateinput"{% endif %}> {# TODO: less brittle #}

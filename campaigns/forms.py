@@ -71,7 +71,8 @@ class MPProcessForm(BaseMPForm):
     def get_formset_kwargs(self):
         assert self.instance is not None
         kwargs = super(MPProcessForm, self).get_formset_kwargs()
-        kwargs['extra'] = (self.instance.pdf_page_count or 1) * 8
+        # One bonus form is added for javascript formset cloning purposes
+        kwargs['extra'] = (self.instance.pdf_page_count or 1) * 8 + 1
         return kwargs
 
 
@@ -82,7 +83,8 @@ class MPVerifyForm(BaseMPForm):
     def get_formset_kwargs(self):
         assert self.instance is not None
         kwargs = super(MPVerifyForm, self).get_formset_kwargs()
-        kwargs['extra'] = 0
+        # One bonus form is added for javascript formset cloning purposes
+        kwargs['extra'] = 1
         return kwargs
 
 
