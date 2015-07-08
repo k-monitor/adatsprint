@@ -74,7 +74,7 @@ class MP(models.Model):
 
     campaign = models.ForeignKey('Campaign', verbose_name=_("campaign"), related_name='participants')
     name = models.CharField(_("name"), max_length=200)
-    agreement_number = models.PositiveIntegerField(_("agreement number"), blank=True, null=True)
+    agreement_number = models.CharField(_("agreement number"), max_length=50, blank=True, null=True)
     campaign_start = models.DateField(_("campaign start"), blank=True, null=True)
     campaign_end = models.DateField(_("campaign end"), blank=True, null=True)
     total = models.PositiveIntegerField(_("total"), blank=True, null=True)
