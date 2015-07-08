@@ -176,7 +176,6 @@ class ClaimProcessView(BaseClaimView):
     next_status = MP.STATUS.PROCESSING
     action = MPEvent.ACTION.PROCESS_START
     pattern_name = 'campaigns:process'
-    user_attr = 'processed_by'
 
 
 class UnclaimProcessView(BaseUnclaimView):
@@ -253,7 +252,7 @@ class ClaimVerifyView(BaseClaimView):
     next_status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_START
     pattern_name = 'campaigns:verify'
-    user_attr = 'verified_by'
+    user_attr = 'processed_by'
 
 
 class UnclaimVerifyView(BaseUnclaimView):
