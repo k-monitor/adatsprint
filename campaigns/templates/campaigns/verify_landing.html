@@ -13,7 +13,7 @@
 
     <div class="row center-content">
     {% if user.is_authenticated %}
-        <a href="{% url 'campaigns:process_dispatch' %}" class="btn btn-primary btn-gigantic">
+        <a href="{% url 'campaigns:verify_dispatch' %}" class="btn btn-primary btn-gigantic">
             <span class="glyphicon glyphicon-random"></span>
             {% trans 'Verify random MP' %}
         </a>
