@@ -173,7 +173,6 @@ msgstr "Sor száma"
 msgid "invoice reference"
 msgstr "Számla/bizonylat sorszáma"
 
-ppi
 #: campaigns/models.py:145
 msgid "issue date"
 msgstr "Számla/bizonylat kiállítási dátuma"
