@@ -173,6 +173,7 @@ msgstr "Sor száma"
 msgid "invoice reference"
 msgstr "Számla/bizonylat sorszáma"
 
+ppi
 #: campaigns/models.py:145
 msgid "issue date"
 msgstr "Számla/bizonylat kiállítási dátuma"
@@ -219,20 +220,20 @@ msgstr "Költségek"
 
 #: campaigns/templates/404.html:6
 msgid "Oops, we can't seem to find the page :("
-msgstr ""
+msgstr "Hoppá, ilyen oldal nincsen :("
 
 #: campaigns/templates/404.html:8
 msgid ""
 "Sorry about that, the page you're asking for doesn't seem to be available "
 "right now"
-msgstr ""
+msgstr "Bocsi, úgy tűnik, a keresett oldal most nem elérhető"
 
 #: campaigns/templates/404.html:12
 #, python-format
 msgid ""
 "Try <a href=\"%(landing_url)s\">going back to the main page</a> and if\n"
 "    this still happens, get in touch with one of the admins."
-msgstr ""
+msgstr "Próbálj meg visszamenni a <a href=\"%(landing_url)s\">főoldalra</a>, és ha még mindig ebbe a hibába ütközöl, szólj a szervezőknek."
 
 #: campaigns/templates/base.html:30
 #: campaigns/templates/campaigns/process.html:6
@@ -346,7 +347,7 @@ msgstr ""
 
 #: campaigns/views.py:189
 msgid "There are no more MPs to process. Good job!"
-msgstr ""
+msgstr "Nincs több feldolgozásra váró jelölt. Gratulálunk!!!"
 
 #: campaigns/views.py:205
 msgid "The MP is back in the to-process list."
@@ -354,11 +355,11 @@ msgstr "A képviselőjelölt visszakerült a feldolgozásra váró listára."
 
 #: campaigns/views.py:233
 msgid "The MP has been processed. On to the next one!"
-msgstr "Ezt a képviselőjelöltet már felszabadították. Mehetsz a következőre!"
+msgstr "Kész a képviselőjelölt felszabadítása. Mehetsz a következőre!"
 
 #: campaigns/views.py:268
 msgid "There are no more MPs to verify. Great job!"
-msgstr ""
+msgstr "Minden jelöltet ellenőriztünk. Siker!!!"
 
 #: campaigns/views.py:285
 msgid "The MP is back in the to-verify list."
@@ -366,4 +367,4 @@ msgstr "A képviselőjelölt visszakerült az ellenőrzésre váró listába."
 
 #: campaigns/views.py:314
 msgid "The MP has been verified. On to the next one!"
-msgstr "Ezt a képviselőjelöltet már ellenőrizték. Mehetsz a következőre!"
+msgstr "Kész a képviselőjelölt ellenőrzése. Mehetsz a következőre!"
