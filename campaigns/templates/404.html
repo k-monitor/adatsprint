@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block body %}
+<h1>{% trans "Oops, we can't seem to find the page :(" %}</h1>
+<p>
+    {% blocktrans %}Sorry about that, the page you're asking for doesn't seem to be available right now{% endblocktrans %}
+</p>
+{% url 'campaigns:landing' as landing_url %}
+<p>
+    {% blocktrans %}Try <a href="{{ landing_url }}">going back to the main page</a> and if
+    this still happens, get in touch with one of the admins.{% endblocktrans %}
+</p>
+{% endblock %}
