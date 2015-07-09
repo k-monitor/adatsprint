@@ -122,6 +122,47 @@ class MP(models.Model):
     def is_claimed_amount_consistent(self):
         return self.total == self.total_claimed_amount
 
+    @property
+    def process_duration(self):
+        start = self.events.get_last_action(MPEvent.ACTION.PROCESS_START)
+        stop = self.events.get_last_action(MPEvent.ACTION.PROCESS_DONE)
+
+        if start is None or stop is None:
+            return None
+
+        assert stop >= start
+        return stop - start
+
+    @property
+    def process_user(self):
+        event_done = self.events.get_last_action(MPEvent.ACTION.PROCESS_DONE)
+        return event_done.user if event_done is not None else None
+
+    @property
+    def verify_duration(self):
+        start = self.events.get_last_action(MPEvent.ACTION.VERIFY_START)
+        stop = self.events.get_last_action(MPEvent.ACTION.VERIFY_DONE)
+
+        if start is None or stop is None:
+            return None
+
+        assert stop >= start
+        return stop - start
+
+    @property
+    def verify_user(self):
+        event_done = self.events.get_last_action(MPEvent.ACTION.VERIFY_DONE)
+        return event_done.user if event_done is not None else None
+
+
+class MPEventQueryset(models.QuerySet):
+    def get_last_action(self, action):
+        return self.filter(action=action).order_by('-happened_on').first()
+
+
+class MPEventManager(Manager.from_queryset(MPEventQueryset)):
+    use_for_related_fields = True
+
 
 class MPEvent(models.Model):
     class ACTION:
@@ -149,6 +190,8 @@ class MPEvent(models.Model):
     action = models.CharField(_("action"), max_length=50, choices=ACTION.choices)
     user = models.ForeignKey('auth.User', verbose_name=_("user"))
     happened_on = models.DateTimeField(_("happened on"), default=timezone.now)
+
+    objects = MPEventManager()
 
 
 class Expense(models.Model):
