@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -108,6 +109,18 @@ class MP(models.Model):
             self._pdf_page_count = get_pdf_page_count(self.pdf_file)
             self.save()
         return self._pdf_page_count
+
+    @property
+    def is_processed(self):
+        return self.status >= self.STATUS.PROCESSED
+
+    @property
+    def total_claimed_amount(self):
+        return self.expense_set.exclude(claimed_amount=None).aggregate(Sum('claimed_amount'))
+
+    @property
+    def is_claimed_amount_consistent(self):
+        return self.total == self.total_claimed_amount
 
 
 class MPEvent(models.Model):
