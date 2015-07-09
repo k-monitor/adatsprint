@@ -22,7 +22,7 @@
 {% include 'viewerjs/viewer.html' %}
 </div>
 <form action="{% block form_action_url %}{% endblock %}" method="post" role="form">
-    <div class="row collapsible">
+    <div class="row collapsible mp-form-general-info">
         <h2 class="collapsible-heading">{% trans 'General information' %}</h2>
         <div class="collapsible-content">
             <div class="form-horizontal col-lg-6">
@@ -86,7 +86,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mp-form-expenses">
         <h2>{% trans 'Expenses' %}</h2>
         <div class="expense-table-outer">
         <table class="row-formset table table-striped">

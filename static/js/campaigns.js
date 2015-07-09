@@ -9,6 +9,8 @@ $(function(){
             heading.toggleClass('collapsed');
         });
     });
+    $('#pdfviewer').resizable({handles: 's'});
+    $('.mp-form-expenses').resizable({handles: 's', alsoResize: '.expense-table-outer'});
     $('table.row-formset').floatThead({
         scrollContainer: function(table){
             return table.parent();
@@ -45,7 +47,6 @@ $(function(){
                 var matchName = input.attr('name').match(nameRegexp);
                 var newId = 'id_' + prefix + '-' + (currentTotalForms-1) + '-' + matchId[2];
                 var newName = prefix + '-' + (currentTotalForms-1) + '-' + matchId[2];
-                console.log(newId, newName);
                 input.attr('id', newId).attr('name', newName);
             });
             newRow.appendTo(table);
