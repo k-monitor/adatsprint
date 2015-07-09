@@ -30,3 +30,4 @@ with open('/home/adatozz/DJANGO_EMAIL_HOST_PASSWORD') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_PORT = 587
 EMAIL_SUBJECT_PREFIX = '[Adatozz] '
+SERVER_EMAIL = 'adatozz@mispelon.eu'
