@@ -2,6 +2,5 @@
 * Add warning when declared total differs from actual total
 * Handle forms errors
 * "Cancel" button on forms should reset status
-* handle empty lists in claim views
 * set up error reporting
 * language switching

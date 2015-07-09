@@ -87,17 +87,22 @@ class ExcludeUserMixin(object):
         return queryset
 
 
-class BaseDispatchView(LoginRequiredMixin, ExcludeUserMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
+class BaseDispatchView(LoginRequiredMixin, MessageMixin, ExcludeUserMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     A view that picks a random MP with the given status (MPStatusMixin) and
     redirect to the `pattern_name` associated with that MP.
     """
     permanent = False
+    empty_queryset_message = None
+    empty_queryset_url = 'campaigns:landing'
 
     def get_redirect_url(self):
         mp_list = self.get_queryset().values_list('pk', flat=True)
-        mp_id = random.choice(mp_list)
-        # TODO: handle empty queryset
+        try:
+            mp_id = random.choice(mp_list)
+        except IndexError:  # The list is empty
+            self.messages.warning(self.empty_queryset_message)
+            return reverse(self.empty_queryset_url)
         return super(BaseDispatchView, self).get_redirect_url(pk=mp_id)
 
 
@@ -181,6 +186,8 @@ class ProcessLandingView(MPStatusMixin, generic.ListView):
 class ProcessDispatch(BaseDispatchView):
     status = MP.STATUS.UNPROCESSED
     pattern_name = 'campaigns:process_claim'
+    empty_queryset_message = _("There are no more MPs to process. Good job!")
+    empty_queryset_url = 'campaigns:landing'
 
 
 class ClaimProcessView(BaseClaimView):
@@ -258,6 +265,8 @@ class VerifyDispatch(BaseDispatchView):
     status = MP.STATUS.PROCESSED
     pattern_name = 'campaigns:verify_claim'
     user_attr = 'processed_by'
+    empty_queryset_message = _("There are no more MPs to verify. Great job!")
+    empty_queryset_url = 'campaigns:landing'
 
 
 class ClaimVerifyView(BaseClaimView):
