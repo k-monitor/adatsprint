@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-09 10:45+0000\n"
+"POT-Creation-Date: 2015-07-07 22:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marietta Le <le.marietta@k-mointor.hu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,23 +217,6 @@ msgstr "Költség"
 msgid "expenses"
 msgstr "Költségek"
 
-#: campaigns/templates/404.html:6
-msgid "Oops, we can't seem to find the page :("
-msgstr ""
-
-#: campaigns/templates/404.html:8
-msgid ""
-"Sorry about that, the page you're asking for doesn't seem to be available "
-"right now"
-msgstr ""
-
-#: campaigns/templates/404.html:12
-#, python-format
-msgid ""
-"Try <a href=\"%(landing_url)s\">going back to the main page</a> and if\n"
-"    this still happens, get in touch with one of the admins."
-msgstr ""
-
 #: campaigns/templates/base.html:30
 #: campaigns/templates/campaigns/process.html:6
 msgid "Process"
@@ -341,29 +324,20 @@ msgstr "Ellenőrzés alatt álló képviselőjelöltek listája"
 #: campaigns/views.py:70
 msgid ""
 "There are some errors in your submission. Please fix them and try again."
-msgstr ""
-"Hibát találtunk a bevitt adatokban, kérünk, hogy nézd át, és próbálkozz újra."
+msgstr "Hibát találtunk a bevitt adatokban, kérünk, hogy nézd át, és próbálkozz újra."
 
-#: campaigns/views.py:189
-msgid "There are no more MPs to process. Good job!"
-msgstr ""
-
-#: campaigns/views.py:205
+#: campaigns/views.py:187
 msgid "The MP is back in the to-process list."
 msgstr "A képviselőjelölt visszakerült a feldolgozásra váró listára."
 
-#: campaigns/views.py:233
+#: campaigns/views.py:215
 msgid "The MP has been processed. On to the next one!"
 msgstr "Ezt a képviselőjelöltet már felszabadították. Mehetsz a következőre!"
 
-#: campaigns/views.py:268
-msgid "There are no more MPs to verify. Great job!"
-msgstr ""
-
-#: campaigns/views.py:285
+#: campaigns/views.py:264
 msgid "The MP is back in the to-verify list."
 msgstr "A képviselőjelölt visszakerült az ellenőrzésre váró listába."
 
-#: campaigns/views.py:314
+#: campaigns/views.py:292
 msgid "The MP has been verified. On to the next one!"
 msgstr "Ezt a képviselőjelöltet már ellenőrizték. Mehetsz a következőre!"
