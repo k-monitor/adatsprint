@@ -159,7 +159,7 @@ class Expense(models.Model):
     provider = models.CharField(_("provider"), max_length=200, blank=True)
     product = models.CharField(_("product"), max_length=200, blank=True)
     payment_date = models.DateField(_("payment date"), blank=True, null=True)
-    purpose = models.CharField(_("purpose"), max_length=500, blank=True, null=True)
+    purpose = models.CharField(_("purpose"), max_length=1000, blank=True, null=True)
     net_amount = models.PositiveIntegerField(_("net amount"), blank=True, null=True)
     VAT_amount = models.PositiveIntegerField(_("VAT amount"), blank=True, null=True)
     gross_amount = models.PositiveIntegerField(_("gross amount"), blank=True, null=True)
