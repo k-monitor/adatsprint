@@ -21,7 +21,7 @@
 <div id="pdfviewer" data-src="{{ object.pdf_file.url }}" class="row">
 {% include 'viewerjs/viewer.html' %}
 </div>
-<form action="{% block form_action_url %}{% endblock %}" method="post" role="form">
+<form action="{% block form_action_url %}{% endblock %}" method="post" role="form" class="mp-form">
     <div class="row collapsible mp-form-general-info">
         <h2 class="collapsible-heading">{% trans 'General information' %}</h2>
         <div class="collapsible-content">

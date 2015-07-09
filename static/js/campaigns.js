@@ -52,4 +52,11 @@ $(function(){
             newRow.appendTo(table);
         });
     });
+    // prevent form submission when pressing Enter
+    $('.mp-form input').keypress(function(event){
+        if(event.keyCode == 13) { // Enter key
+            event.preventDefault();
+            console.log('Event prevented');
+        }
+    });
 });
