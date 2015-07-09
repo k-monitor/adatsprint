@@ -154,7 +154,7 @@ class MPEvent(models.Model):
 class Expense(models.Model):
     MP = models.ForeignKey('MP', verbose_name=_("MP"))
     row_number = models.PositiveIntegerField(_("row number"))
-    invoice_reference = models.CharField(_("invoice reference"), max_length=50, blank=True)
+    invoice_reference = models.CharField(_("invoice reference"), max_length=100, blank=True)
     invoice_issue_date = models.DateField(_("issue date"), blank=True, null=True)
     provider = models.CharField(_("provider"), max_length=200, blank=True)
     product = models.CharField(_("product"), max_length=200, blank=True)
