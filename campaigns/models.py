@@ -160,7 +160,7 @@ class MPEventQueryset(models.QuerySet):
         return self.filter(action=action).order_by('-happened_on').first()
 
 
-class MPEventManager(Manager.from_queryset(MPEventQueryset)):
+class MPEventManager(models.Manager.from_queryset(MPEventQueryset)):
     use_for_related_fields = True
 
 
