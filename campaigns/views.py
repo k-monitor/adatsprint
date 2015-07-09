@@ -74,7 +74,20 @@ class FormErrorMessageMixin(MessageMixin):
         return super(FormErrorMessageMixin, self).form_invalid(form)
 
 
-class BaseDispatchView(LoginRequiredMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
+class ExcludeUserMixin(object):
+    """
+    Override the get_queryset() method to exclude the current user.
+    """
+    user_attr = None
+
+    def get_queryset(self):
+        queryset = super(ExcludeUserMixin, self).get_queryset()
+        if self.user_attr is not None:
+            queryset = queryset.exclude(**{self.user_attr: self.request.user})
+        return queryset
+
+
+class BaseDispatchView(LoginRequiredMixin, ExcludeUserMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     A view that picks a random MP with the given status (MPStatusMixin) and
     redirect to the `pattern_name` associated with that MP.
@@ -88,7 +101,7 @@ class BaseDispatchView(LoginRequiredMixin, MPStatusMixin, SingleObjectMixin, gen
         return super(BaseDispatchView, self).get_redirect_url(pk=mp_id)
 
 
-class BaseClaimView(LoginRequiredMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
+class BaseClaimView(LoginRequiredMixin, ExcludeUserMixin, MPEventMixin, MPStatusMixin, SingleObjectMixin, generic.RedirectView):
     """
     Get an MP based on the pk provided in the URL.
     Update its status based on the view's attribute (set by child classes) and
@@ -99,7 +112,6 @@ class BaseClaimView(LoginRequiredMixin, MPEventMixin, MPStatusMixin, SingleObjec
     next_status = None
     action = None
     permanent = False
-    user_attr = None
 
     def get_queryset(self):
         queryset = super(BaseClaimView, self).get_queryset()
@@ -245,6 +257,7 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
 class VerifyDispatch(BaseDispatchView):
     status = MP.STATUS.PROCESSED
     pattern_name = 'campaigns:verify_claim'
+    user_attr = 'processed_by'
 
 
 class ClaimVerifyView(BaseClaimView):
@@ -263,11 +276,12 @@ class UnclaimVerifyView(BaseUnclaimView):
     success_message = _("The MP is back in the to-verify list.")
 
 
-class VerifyView(LoginRequiredMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
+class VerifyView(LoginRequiredMixin, ExcludeUserMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_DONE
     form_class = MPVerifyForm
     template_name = 'campaigns/verify.html'
+    user_attr = 'processed_by'
 
     def get_form_kwargs(self):
         kwargs = super(VerifyView, self).get_form_kwargs()
