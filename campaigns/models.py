@@ -130,8 +130,8 @@ class MP(models.Model):
         if start is None or stop is None:
             return None
 
-        assert stop >= start
-        return stop - start
+        assert stop.happened_on >= start.happened_on
+        return stop.happened_on - start.happened_on
 
     @property
     def process_user(self):
@@ -146,8 +146,8 @@ class MP(models.Model):
         if start is None or stop is None:
             return None
 
-        assert stop >= start
-        return stop - start
+        assert stop.happened_on >= start.happened_on
+        return stop.happened_on - start.happened_on
 
     @property
     def verify_user(self):
