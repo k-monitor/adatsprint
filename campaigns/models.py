@@ -154,6 +154,40 @@ class MP(models.Model):
         event_done = self.events.get_last_action(MPEvent.ACTION.VERIFY_DONE)
         return event_done.user if event_done is not None else None
 
+    def as_csv_tuple(self):
+        """
+        Return the object in a tuple form suitable for putting in a CSV file
+        """
+        return (
+            self.pk,
+            self.campaign.pk,
+            self.campaign.name,
+            self.name,
+            self.agreement_number,
+            self.campaign_start.isoformat() if self.campaign_start else '',
+            self.campaign_end.isoformat() if self.campaign_end else '',
+            self.total,
+            self.signed_on.isoformat() if self.signed_on else '',
+            self.comment,
+            self._pdf_page_count,
+            self.get_status_display(),
+        )
+
+    as_csv_tuple.header = (
+        'ID',
+        'campaign ID',
+        'campaign name',
+        'name',
+        'agreement_number',
+        'campaign_start',
+        'campaign_end',
+        'total',
+        'signed_on',
+        'comment',
+        'PDF page count',
+        'status',
+    )
+
 
 class MPEventQueryset(models.QuerySet):
     def get_last_action(self, action):
@@ -193,6 +227,28 @@ class MPEvent(models.Model):
 
     objects = MPEventManager()
 
+    def as_csv_tuple(self):
+        """
+        Return the object in a tuple form suitable for putting in a CSV file
+        """
+        return (
+            self.pk,
+            self.MP.pk,
+            self.MP.name,
+            self.get_action_display(),
+            self.user.username,
+            self.happened_on.isoformat(),
+        )
+
+    as_csv_tuple.header = (
+        'ID',
+        'MP ID',
+        'MP name',
+        'event',
+        'user',
+        'date',
+    )
+
 
 class Expense(models.Model):
     MP = models.ForeignKey('MP', verbose_name=_("MP"))
@@ -211,3 +267,41 @@ class Expense(models.Model):
     class Meta:
         verbose_name = _("expense")
         verbose_name_plural = _("expenses")
+
+    def as_csv_tuple(self):
+        """
+        Return the object in a tuple form suitable for putting in a CSV file
+        """
+        return (
+            self.pk,
+            self.MP.pk,
+            self.MP.name,
+            self.row_number,
+            self.invoice_reference,
+            self.invoice_issue_date.isoformat() if self.invoice_issue_date else '',
+            self.provider,
+            self.product,
+            self.payment_date.isoformat() if self.payment_date else '',
+            self.purpose,
+            self.net_amount,
+            self.VAT_amount,
+            self.gross_amount,
+            self.claimed_amount,
+        )
+
+    as_csv_tuple.header = (
+        'ID',
+        'MP ID',
+        'MP name',
+        'row_number',
+        'invoice_reference',
+        'invoice_issue_date',
+        'provider',
+        'product',
+        'payment_date',
+        'purpose',
+        'net_amount',
+        'VAT_amount',
+        'gross_amount',
+        'claimed_amount',
+    )
