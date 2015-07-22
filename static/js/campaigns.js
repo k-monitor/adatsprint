@@ -56,7 +56,6 @@ $(function(){
     $('.mp-form input').keypress(function(event){
         if(event.keyCode == 13) { // Enter key
             event.preventDefault();
-            console.log('Event prevented');
         }
     });
 });

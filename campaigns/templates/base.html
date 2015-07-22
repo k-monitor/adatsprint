@@ -20,7 +20,7 @@
         {% block extra_head %}{% endblock %}
     </head>
     <body>
-        <div class="container">
+        <div class="{% block container_class %}container{% endblock %}">
         {% block navigation %}
         {% activeurl menu="no" %}
             <nav class="row navbar navbar-default">

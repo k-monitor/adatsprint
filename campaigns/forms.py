@@ -103,12 +103,12 @@ EXPENSE_FORMSET_FIELDS = [
 ]
 EXPENSE_FORMSET_WDIGETS = {
     'row_number': forms.TextInput(attrs={'size': 2, 'class': 'form-control'}),
-    'invoice_reference': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
+    'invoice_reference': forms.Textarea(attrs={'rows': 1, 'cols': 10, 'class': 'form-control'}),
     'invoice_issue_date': forms.DateInput(attrs={'data-provide': 'datepicker', 'data-date-format': 'yyyy-mm-dd', 'data-date-autoclose': 'true', 'data-date-start-view': 'decade', 'class': 'form-control'}),
-    'provider': forms.TextInput(attrs={'size': 10, 'class': 'form-control'}),
-    'product': forms.TextInput(attrs={'size': 10, 'class': 'form-control'}),
+    'provider': forms.Textarea(attrs={'rows': 1, 'cols': 10, 'class': 'form-control'}),
+    'product': forms.Textarea(attrs={'rows': 1, 'cols': 10, 'class': 'form-control'}),
     'payment_date': forms.DateInput(attrs={'data-provide': 'datepicker', 'data-date-format': 'yyyy-mm-dd', 'data-date-autoclose': 'true', 'data-date-start-view': 'decade', 'class': 'form-control'}),
-    'purpose': forms.TextInput(attrs={'size': 20, 'class': 'form-control'}),
+    'purpose': forms.Textarea(attrs={'rows': 1, 'cols': 20, 'class': 'form-control'}),
     'net_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
     'VAT_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
     'gross_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
