@@ -58,4 +58,9 @@ $(function(){
             event.preventDefault();
         }
     });
+    $('textarea.enlarge-on-focus').focus(function(){
+        $(this).animate({'height': '+=80'});
+    }).blur(function(){
+        $(this).animate({'height': '-=80'});
+    });
 });

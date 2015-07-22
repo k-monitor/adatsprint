@@ -56,3 +56,7 @@ table.row-formset > tbody > tr > td.dateinput {
 .center-content {
     text-align: center;
 }
+
+.row-formset textarea {
+    overflow-y: hidden;
+}
