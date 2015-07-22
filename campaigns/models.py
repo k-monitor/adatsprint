@@ -95,6 +95,9 @@ class MP(models.Model):
     class Meta:
         verbose_name = _("MP")
         verbose_name_plural = _("MPs")
+        permissions = (
+            ('can_verify', _("Can verify MP")),
+        )
 
     def __str__(self):
         return self.name

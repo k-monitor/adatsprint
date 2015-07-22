@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 
-from braces.views import LoginRequiredMixin, StaffuserRequiredMixin, MessageMixin
+from braces.views import LoginRequiredMixin, StaffuserRequiredMixin, MessageMixin, PermissionRequiredMixin
 
 from .forms import MPProcessForm, MPVerifyForm, EXPENSE_FORMSET_FIELDS, EXPENSE_FORMSET_WDIGETS
 from .models import Campaign, MP, MPEvent, Expense
@@ -245,12 +245,13 @@ class PendingProcessListView(StaffuserRequiredMixin, MPStatusMixin, generic.List
         return queryset
 
 
-class VerifyLandingView(MPStatusMixin, generic.ListView):
+class VerifyLandingView(PermissionRequiredMixin, MPStatusMixin, generic.ListView):
     """
     Display a list of MPs that need to be processed.
     """
     status = MP.STATUS.PROCESSED
     template_name = 'campaigns/verify_landing.html'
+    permission_required = 'campaigns.can_verify'
 
     def get_context_data(self, **kwargs):
         context = super(VerifyLandingView, self).get_context_data(**kwargs)
@@ -261,20 +262,22 @@ class VerifyLandingView(MPStatusMixin, generic.ListView):
         return context
 
 
-class VerifyDispatch(BaseDispatchView):
+class VerifyDispatch(PermissionRequiredMixin, BaseDispatchView):
     status = MP.STATUS.PROCESSED
     pattern_name = 'campaigns:verify_claim'
     user_attr = 'processed_by'
     empty_queryset_message = _("There are no more MPs to verify. Great job!")
     empty_queryset_url = 'campaigns:landing'
+    permission_required = 'campaigns.can_verify'
 
 
-class ClaimVerifyView(BaseClaimView):
+class ClaimVerifyView(PermissionRequiredMixin, BaseClaimView):
     status = MP.STATUS.PROCESSED
     next_status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_START
     pattern_name = 'campaigns:verify'
     user_attr = 'processed_by'
+    permission_required = 'campaigns.can_verify'
 
 
 class UnclaimVerifyView(BaseUnclaimView):
@@ -285,12 +288,13 @@ class UnclaimVerifyView(BaseUnclaimView):
     success_message = _("The MP is back in the to-verify list.")
 
 
-class VerifyView(LoginRequiredMixin, ExcludeUserMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
+class VerifyView(LoginRequiredMixin, PermissionRequiredMixin, ExcludeUserMixin, FormErrorMessageMixin, MPEventMixin, MPStatusMixin, generic.UpdateView):
     status = MP.STATUS.VERIFYING
     action = MPEvent.ACTION.VERIFY_DONE
     form_class = MPVerifyForm
     template_name = 'campaigns/verify.html'
     user_attr = 'processed_by'
+    permission_required = 'campaigns.can_verify'
 
     def get_form_kwargs(self):
         kwargs = super(VerifyView, self).get_form_kwargs()
