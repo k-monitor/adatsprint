@@ -60,3 +60,7 @@ table.row-formset > tbody > tr > td.dateinput {
 .row-formset textarea {
     overflow-y: hidden;
 }
+
+.mp-form-container {
+    padding: 0 25px;
+}

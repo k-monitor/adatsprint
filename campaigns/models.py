@@ -266,6 +266,7 @@ class Expense(models.Model):
     VAT_amount = models.PositiveIntegerField(_("VAT amount"), blank=True, null=True)
     gross_amount = models.PositiveIntegerField(_("gross amount"), blank=True, null=True)
     claimed_amount = models.PositiveIntegerField(_("claimed amount"), blank=True, null=True)
+    accepted = models.BooleanField(_("Accepted by authority"), default=True)
 
     class Meta:
         verbose_name = _("expense")
