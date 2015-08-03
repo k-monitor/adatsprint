@@ -214,8 +214,8 @@ msgid "claimed amount"
 msgstr "Elszámolt támogatás"
 
 #: campaigns/models.py:269
-msgid "Accepted by authority"
-msgstr ""
+msgid "Refused by authority"
+msgstr "Elutasítva"
 
 #: campaigns/models.py:272
 msgid "expense"
