@@ -139,7 +139,7 @@ msgstr "Folyamat megkezdése"
 
 #: campaigns/models.py:218
 msgid "process done"
-msgstr "Elkészült"
+msgstr "Bevitel kész"
 
 #: campaigns/models.py:219
 msgid "verify start"
@@ -147,7 +147,7 @@ msgstr "Ellenőrzés megkezdése"
 
 #: campaigns/models.py:220
 msgid "verify done"
-msgstr "Ellenőrizve"
+msgstr "Ellenőrzés kész"
 
 #: campaigns/models.py:222
 msgid "process unclaim"
@@ -294,19 +294,23 @@ msgstr "Visszavonás"
 
 #: campaigns/templates/campaigns/landing.html:7
 msgid "Welcome"
-msgstr "Üdvözlünk a Kampányköltség adatsprinten"
+msgstr "Szeretnéd tudni, hogy mire költötték a pénzed a képviselőjelöltek 2014-ben? \n
+Hogy mindenki hozzájusson ehhez az információhoz, a segítségedre van szükségünk. \n
+Az Adatsprint oldal egy olyan platform, ahol a 2014 tavaszi választásokon leadott képviselőjelölti számlaösszesítőket tudjuk egyesével digitalizálni, mert sajnos a többségük kézzel írott, szkennelt dokumentum. Pedig a kampányolásra kapott 1 millió forintos támogatást sok érdekes dologra költötték a jelöltek. \n
+Van itt minden: új telefon, pszichológiai tanácsadás és Nike Air Max.
+<a href = "http://adatsprint.k-monitor.hu/accounts/register/">Regisztrálj</a>, és segíts nekünk felszabadítani ezeket a dokumentumokat!"
 
 #: campaigns/templates/campaigns/landing.html:13
 #: campaigns/templates/campaigns/process_landing.html:11
 #, python-format
 msgid "Completed: %(completed)s / %(total)s"
-msgstr "Kész: %(completed)s / Még van %(total)s"
+msgstr "Kész: %(completed)s / %(total)s van hátra"
 
 #: campaigns/templates/campaigns/landing.html:22
 #: campaigns/templates/campaigns/verify_landing.html:10
 #, python-format
 msgid "Verified: %(verified)s / %(total)s"
-msgstr "Ellenőrizve: %(verified)s / Még ellenőrzésre vár %(total)s"
+msgstr "Ellenőrizve: %(verified)s / %(total)s vár ellenőrzésre"
 
 #: campaigns/templates/campaigns/process_landing.html:6
 msgid "List of MP that need processing"
