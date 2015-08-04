@@ -17,6 +17,8 @@
 {# We disable navigation on forms to prevent people from navigating away #}
 {% block navigation %}{% endblock %}
 
+{% block container_class %}container-fluid{% endblock %}
+
 {% block body %}
 <div id="pdfviewer" data-src="{{ object.pdf_file.url }}" class="row">
 {% include 'viewerjs/viewer.html' %}
