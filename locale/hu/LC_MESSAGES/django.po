@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-03 10:10+0000\n"
+"POT-Creation-Date: 2015-08-04 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marietta Le <le.marietta@k-mointor.hu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,8 +214,8 @@ msgid "claimed amount"
 msgstr "Elszámolt támogatás"
 
 #: campaigns/models.py:269
-msgid "Accepted by authority"
-msgstr ""
+msgid "Rejected by authority"
+msgstr "Elutasítva"
 
 #: campaigns/models.py:272
 msgid "expense"
