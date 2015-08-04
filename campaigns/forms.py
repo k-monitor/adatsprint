@@ -89,7 +89,7 @@ class MPVerifyForm(BaseMPForm):
 
 
 EXPENSE_FORMSET_FIELDS = [
-    'accepted',
+    'rejected',
     'row_number',
     'invoice_reference',
     'invoice_issue_date',
@@ -114,6 +114,6 @@ EXPENSE_FORMSET_WDIGETS = {
     'VAT_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
     'gross_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
     'claimed_amount': forms.TextInput(attrs={'size': 8, 'class': 'form-control'}),
-    'accepted': forms.CheckboxInput(attrs={'class': 'form-control'}),
+    'rejected': forms.CheckboxInput(attrs={'class': 'form-control'}),
 }
 ExpenseFormset = inlineformset_factory(MP, Expense, fields=EXPENSE_FORMSET_FIELDS, widgets=EXPENSE_FORMSET_WDIGETS)
