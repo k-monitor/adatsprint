@@ -302,8 +302,13 @@ msgstr ""
 "többségük kézzel írott, szkennelt dokumentum. Pedig a kampányolásra kapott 1 millió "
 "forintos támogatást sok érdekes dologra költötték a jelöltek. \n"
 "Van itt minden: új telefon, pszichológiai tanácsadás és Nike Air Max."
+
+#: campaigns/templates/campaigns/landing.html:8
+msgid "Welcome registration"
+msgstr ""
 "<a href=\"http://adatsprint.k-monitor.hu/accounts/register/\">Regisztrálj</a>, "
-"és segíts nekünk felszabadítani ezeket a dokumentumokat!"
+"és segíts nekünk felszabadítani ezeket a dokumentumokat!
+""
 
 #: campaigns/templates/campaigns/landing.html:13
 #: campaigns/templates/campaigns/process_landing.html:11
