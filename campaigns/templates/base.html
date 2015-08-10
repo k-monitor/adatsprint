@@ -32,7 +32,7 @@
                         <li>
                             <a href="{% url 'campaigns:process_landing' %}">{% trans 'Process' %}</a>
                         </li>
-                        {% if perms.can_verify %}
+                        {% if perms.campaigns.can_verify %}
                             <li>
                                 <a href="{% url 'campaigns:verify_landing' %}">{% trans 'Verify' %}</a>
                             </li>
