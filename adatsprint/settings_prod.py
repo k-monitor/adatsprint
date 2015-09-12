@@ -12,7 +12,7 @@ with open('/home/adatozz/DJANGO_SECRET_KEY') as f:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'adatsprint',
+        'NAME': 'adatozz',
     }
 }
 
