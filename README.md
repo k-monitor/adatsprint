@@ -1,4 +1,4 @@
-Adatozz
+adatsprint
 =======
 
 A project to help digitize FoI documents.
@@ -82,12 +82,12 @@ Deploying
 
 Make sure you use the correct settings file when running management commands:
 
-    DJANGO_SETTINGS_MODULE=adatozz.settings_prod python manage.py migrate
+    DJANGO_SETTINGS_MODULE=adatsprint.settings_prod python manage.py migrate
 
 To start gunicorn:
 
-    gunicorn -c gunicorn_confi.py adatozz.wsgi:application
+    gunicorn -c gunicorn_confi.py adatsprint.wsgi:application
 
 To reload gunicorn (after code change for example):
 
-    kill -HUP $(cat adatozz.pid)
+    kill -HUP $(cat adatsprint.pid)

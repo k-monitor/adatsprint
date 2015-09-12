@@ -1,6 +1,6 @@
 import os
 
-from adatozz.settings import *
+from adatsprint.settings import *
 
 DEBUG = False
 
@@ -12,7 +12,7 @@ with open('/home/adatozz/DJANGO_SECRET_KEY') as f:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'adatozz',
+        'NAME': 'adatsprint',
     }
 }
 
@@ -29,5 +29,5 @@ EMAIL_HOST_USER = 'bmispelon@gmail.com'
 with open('/home/adatozz/DJANGO_EMAIL_HOST_PASSWORD') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
 EMAIL_PORT = 587
-EMAIL_SUBJECT_PREFIX = '[Adatozz] '
-SERVER_EMAIL = 'adatozz@mispelon.eu'
+EMAIL_SUBJECT_PREFIX = '[adatsprint] '
+SERVER_EMAIL = 'adatsprint@mispelon.eu'
